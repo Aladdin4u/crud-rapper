@@ -12,7 +12,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true})
     .then(client => {
         console.log(`connected to ${dbName} Database`)
         db = client.db(dbName)
-    })
+    
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true}))
@@ -36,7 +36,7 @@ app.post('/addRapper', (req, res) => {
     .catch(err => console.error(err))
 })
 app.put('/addNewRapper', (req,res) => {
-    db.collection(rappers).updateOne({stageName: req.body.stageName, birthName: req.body.birthName, likes: req.body.likes}, 
+    db.collection('rappers').updateOne({stageName: req.body.stageName, birthName: req.body.birthName, likes: req.body.likes}, 
         {
             $set: { likes: req.body.likes + 1 }
             },
@@ -61,3 +61,5 @@ app.delete('/deleteRapper', (req, res) => {
 app.listen(process.env.PORT || PORT, () => {
     console.log(`connected to port ${PORT}`)
 })
+})
+.catch(console.error)
